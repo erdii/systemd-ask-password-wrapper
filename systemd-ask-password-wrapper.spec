@@ -42,7 +42,6 @@ install -Dpm 644 config/%{name}.path %{buildroot}%{_unitdir}/%{name}.path
 %{_bindir}/%{name}
 %{_unitdir}/%{name}.service
 %{_unitdir}/%{name}.path
-%config(noreplace) %{_sysconfdir}/%{name}/config.json
 
 
 %changelog
