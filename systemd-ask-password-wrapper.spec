@@ -1,15 +1,15 @@
-Name:           systemd-ask-password-wrapper
-Version:        0.0.1
-Release:        1%{?dist}
-Summary:        Forward systemd-ask-password requests to a wrapped command
+Name:           systemd-ask-password-wrapper
+Version:        0.0.1
+Release:        1%{?dist}
+Summary:        Forward systemd-ask-password requests to a wrapped command
 
-License:        GPLv3
-Source0:        %{name}-%{version}.tar.gz
+License:        GPLv3
+Source0:        %{name}-%{version}.tar.gz
 
-BuildRequires:  golang
-BuildRequires:  systemd-rpm-macros
+BuildRequires:  golang
+BuildRequires:  systemd-rpm-macros
 
-Provides:       %{name} = %{version}
+Provides:       %{name} = %{version}
 
 %description
 Forward systemd-ask-password requests to a wrapped command
