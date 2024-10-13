@@ -1,6 +1,6 @@
 module github.com/erdii/systemd-ask-password-wrapper
 
-go 1.23.1
+go 1.22.7
 
 require (
 	github.com/illarion/gonotify/v2 v2.0.8
