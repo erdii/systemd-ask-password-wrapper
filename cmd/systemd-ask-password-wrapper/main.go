@@ -10,6 +10,7 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
+	"time"
 )
 
 func main() {
@@ -98,7 +99,7 @@ func run(job job) error {
 	if err != nil {
 		fmt.Println(fmt.Errorf("calling wrapped command: %w", err))
 		// Signal that running the command errored.
-		return exec.CommandContext(job.ctx, "/usr/bin/pkexec", "/lib/systemd/systemd-reply-password", "0").Run()
+		return exec.CommandContext(job.ctx, "/lib/systemd/systemd-reply-password", "0").Run()
 	}
 
 	// Return early if job was cancelled.
@@ -107,7 +108,9 @@ func run(job job) error {
 	}
 
 	// Send passphrase to ask socket.
-	pkreply := exec.CommandContext(context.TODO(), "/usr/bin/pkexec", "/lib/systemd/systemd-reply-password", "1", ask.socket)
+	replyCtx, replyCancel := context.WithTimeout(context.Background(), time.Second)
+	defer replyCancel()
+	pkreply := exec.CommandContext(replyCtx, "/lib/systemd/systemd-reply-password", "1", ask.socket)
 	pkreply.Stdin = bytes.NewReader(passphrase)
 	return pkreply.Run()
 }
